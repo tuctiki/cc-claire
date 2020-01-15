@@ -4,9 +4,7 @@
 ## python版本
 python3.x
 ## 所需模块
-pip install requests<br>
-pip install bs4<br>
-pip install lxml<br>
+pip install requirements.txt
 ## 代理配置
 需要开启全局代理(ss/ssr)
 # 使用方法
