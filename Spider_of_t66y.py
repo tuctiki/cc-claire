@@ -5,9 +5,10 @@ from lxml import html
 import xml
 import os
 import time
-
-class_list1=["[亞洲]","[歐美]","[動漫]","[寫真]","[原创]"]
-
+'''
+Made By eqqie.
+'''
+class_list1=["[亞洲]","[歐美]","[動漫]","[寫真]","[原创]","[其它]"]
 main_url="http://t66y.com/"
 url1="http://t66y.com/thread0806.php?fid=8&search=&page="
 url2="http://t66y.com/thread0806.php?fid=16&search=&page="
@@ -17,7 +18,7 @@ if os.path.exists("./t66y"):
 else:
     os.mkdir("./t66y")
 
-def download_pic(name,url,path):
+def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
     count=-1
     try:
         os.mkdir(path+"/"+name[:4])
@@ -53,7 +54,8 @@ def download_pic(name,url,path):
             print("request failed!")
         del r
 
-def get_list(class_name,url):
+def get_list(class_name,url): #该函数获取板块内的帖子列表
+    '''get_list(class_name,url)'''
     if os.path.exists("./t66y/"+class_name):
         print("path['./t66y/"+class_name+"'] exists")
     else:
@@ -84,7 +86,7 @@ def get_list(class_name,url):
     print(post_list)
     for key in post_list:
         #download_pic(key,post_list[key],"./t66y/"+class_name)
-        download_thread=threading.Thread(target=download_pic, args=(key,post_list[key],"./t66y/"+class_name,))
+        download_thread=threading.Thread(target=download_pic, args=(key,post_list[key],"./t66y/"+class_name,)) #多线程下载
         download_thread.start()
         time.sleep(0.5)
 
