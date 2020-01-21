@@ -1,5 +1,5 @@
 # t66y_spider
-下载草榴【新時代的我們】和【達蓋爾的旗幟】两个板块帖子内的图片 
+利用爬虫下载草榴【新時代的我們】和【達蓋爾的旗幟】两个板块帖子内的图片 
 # 环境要求
 ## python版本
 python 3.x
@@ -19,4 +19,4 @@ pip install requirements.txt
 ```python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300```<br>
 ```python Spider_of_t66y.py -h```<br>
 # 友情提醒
-注意身体
+注意身体 by.赤道企鹅™
