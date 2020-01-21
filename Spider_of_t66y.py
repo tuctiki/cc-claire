@@ -92,7 +92,7 @@ def get_list(class_name,url): #该函数获取板块内的帖子列表
             else:
                 time.sleep(1)
         download_thread=threading.Thread(target=download_pic, args=(key,post_list[key],"./t66y/"+class_name,)) #多线程下载
-        download_thread.setDaemon(True) 
+        download_thread.setDaemon(True)  #设置守护进程
         download_thread.start()
         time.sleep(0.1)
 
