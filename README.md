@@ -3,7 +3,7 @@
 # 环境要求
 ## 解释器版本
 Python 3.x
-## 所需模块
+## 模块列表
 pip install requirements.txt
 ## 代理配置
 需要开启全局代理(ss/ssr)
