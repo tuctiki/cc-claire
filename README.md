@@ -19,4 +19,4 @@ pip install requirements.txt
 ```python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300```<br>
 ```python Spider_of_t66y.py -h```<br>
 # 友情提醒
-注意身体 by.赤道企鹅™
+仅供学习，注意身体<br>by.赤道企鹅™
