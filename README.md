@@ -1,8 +1,8 @@
 # t66y_spider
 利用爬虫下载草榴【新時代的我們】和【達蓋爾的旗幟】两个板块帖子内的图片 
 # 环境要求
-## python版本
-python 3.x
+## 解释器版本
+Python 3.x
 ## 所需模块
 pip install requirements.txt
 ## 代理配置
