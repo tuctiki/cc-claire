@@ -7,9 +7,7 @@ import sys
 import argparse 
 import os
 import time
-'''
-Made By eqqie.
-'''
+
 class_list1=["[亞洲]","[歐美]","[動漫]","[寫真]","[原创]","[其它]"]
 main_url="http://t66y.com/"
 url1="http://t66y.com/thread0806.php?fid=8&search=&page="
@@ -100,8 +98,8 @@ def pre_exit():
     while(1):
         thread_unfinished=threading.active_count() - 1
         if thread_unfinished>0:
-            print("***剩余下载线程：[",thread_unfinished,"]***")
-            print("若长时间无反应请手动结束进程...")
+            print("\n***剩余下载线程：[",thread_unfinished,"]***")
+            print("若长时间响应请手动结束进程...")
             time.sleep(8)
         else:
             print("下载已完成！")
