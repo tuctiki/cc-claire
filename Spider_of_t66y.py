@@ -27,8 +27,8 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
         os.mkdir(path+"/"+name[:4]+"/"+name[4:])
     try:
         f=requests.get(url)
-    except:
-        print("download failed...")
+    except Exception as e:
+        print("download failed:",e)
         return 0
     soup=BeautifulSoup(f.content,"lxml")
     photo_div=soup.find_all('div',class_="tpc_content do_not_catch")
@@ -41,15 +41,15 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
         print("download:",pic_url,end="")
         try:
             r=requests.get(pic_url,stream=True)
-        except:
-            print("connect failed...")
+        except Exception as e:
+            print("connect failed:",e)
             return 0
         if r.status_code==200:
             count+=1
             open(savepath+"/"+str(count)+"."+pic_url.split(".")[-1], 'wb').write(r.content)
             print("(",count+1,"/",photo_num,")")
         else:
-            print("request failed!")
+            print(r.status_code,":request failed!")
         del r
 
 def get_list(class_name,url): #该函数获取板块内的帖子列表
@@ -61,8 +61,8 @@ def get_list(class_name,url): #该函数获取板块内的帖子列表
     post_class=""
     try:
         f=requests.get(url)
-    except:
-        print("Connect failed!")
+    except Exception as e:
+        print("Connect failed:",e)
         sys.exit(0)
     soup=BeautifulSoup(f.content,"lxml")
     td=soup.find_all('td',class_="tal")
