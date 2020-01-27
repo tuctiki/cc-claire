@@ -63,7 +63,7 @@ def get_list(class_name,url): #该函数获取板块内的帖子列表
         f=requests.get(url)
     except:
         print("Connect failed!")
-        exit()
+        sys.exit(0)
     soup=BeautifulSoup(f.content,"lxml")
     td=soup.find_all('td',class_="tal")
     post_list=dict()
@@ -103,7 +103,7 @@ def pre_exit():
             time.sleep(8)
         else:
             print("下载已完成！")
-            exit(0)
+            sys.exit(0)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -117,10 +117,10 @@ def main():
     end=args.end
     if class_id>2:
         print("Sorry no class [",class_id,"] !")
-        exit(0)
+        sys.exit(0)
     if end<start or start<1:
         print("Bad range!")
-        exit(0)
+        sys.exit(0)
     if os.path.exists("./t66y"):
         print("path[',/t66y'] exists")
     else:
@@ -148,4 +148,5 @@ def main():
             pre_exit() 
 
 if __name__=="__main__":
+    print("合理欣赏怡情，过度手冲伤身！")
     main()
