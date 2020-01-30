@@ -6,7 +6,18 @@ Python 3.x
 ## 模块列表
 pip install requirements.txt
 ## 代理配置
-需要开启全局代理(ss/ssr)
+根目录下有代理配置文件，可以配置http/https代理
+默认配置：
+```
+{
+  "http": "http://localhost:1080",
+  "https": "https://localhost:1080"
+}
+```
+### 本地代理
+本地开启ss/ssr后修改配置文件中的代理端口为你设置的端口（一般默认1080）
+### 远程代理
+填入代理提供商的IP地址以及对应端口即可
 # 使用方法
 ## 命令行:<br>
 ```python Spider_of_t66y.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD]```<br>
