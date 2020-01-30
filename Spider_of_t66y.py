@@ -2,6 +2,7 @@ import requests
 import threading
 from bs4 import BeautifulSoup
 from lxml import html
+import json
 import xml
 import sys
 import argparse 
@@ -13,6 +14,14 @@ main_url="http://t66y.com/"
 url1="http://t66y.com/thread0806.php?fid=8&search=&page="
 url2="http://t66y.com/thread0806.php?fid=16&search=&page="
 max_thread=200
+
+try:
+    proxy=open("proxy","r")
+    proxies=json.loads(proxy.read())
+    print(proxies)
+except Exception as e:
+    print("Filed to load './proxy' cause:",e)
+    sys.exit(0)
 
 def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
     count=-1
@@ -26,7 +35,7 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
     else:
         os.mkdir(path+"/"+name[:4]+"/"+name[4:])
     try:
-        f=requests.get(url)
+        f=requests.get(url,proxies=proxies)
     except Exception as e:
         print("download failed:",e)
         return 0
@@ -40,7 +49,7 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
         pic_url=str(li).split('"')[-2]
         print("download:",pic_url,end="")
         try:
-            r=requests.get(pic_url,stream=True)
+            r=requests.get(pic_url,proxies=proxies,stream=True)
         except Exception as e:
             print("connect failed:",e)
             return 0
@@ -60,7 +69,7 @@ def get_list(class_name,url): #该函数获取板块内的帖子列表
         os.mkdir("./t66y/"+class_name)
     post_class=""
     try:
-        f=requests.get(url)
+        f=requests.get(url,proxies=proxies)
     except Exception as e:
         print("Connect failed:",e)
         sys.exit(0)
@@ -148,5 +157,4 @@ def main():
             pre_exit() 
 
 if __name__=="__main__":
-    print("合理欣赏怡情，过度手冲伤身！")
     main()
