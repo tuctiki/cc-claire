@@ -15,9 +15,10 @@ pip install requirements.txt
 }
 ```
 ### 本地代理
-本地开启ss/ssr后修改配置文件中的代理端口为你设置的端口（一般默认1080）
+本地开启ss/ssr后，修改配置文件中的代理端口为ss/ssr的代理端口（一般默认1080）
+*请确保PAC文件设置了代理草榴网站的规则*
 ### 远程代理
-填入代理提供商的IP地址以及对应端口即可
+填入代理提供商的IP地址以及对应端口号即可（如http://xxx.xxx.xxx.xxx:1234/）
 # 使用方法
 ## 命令行:<br>
 ```python Spider_of_t66y.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD]```<br>
