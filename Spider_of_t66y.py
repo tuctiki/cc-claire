@@ -54,7 +54,7 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
     try:
         photo_list=photo_div[0].find_all('img')
     except Exception as e:
-        print("Url(%s) filed to get photo list cause :"%(url),e)
+        print("\nUrl(%s) filed to get photo list cause :"%(url),e)
         return 0
 
     savepath=path+"/"+name[:4]+"/"+name[4:]
@@ -62,7 +62,7 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
     for li in photo_list:
         #print(str(li))
         pic_url=str(li).split('"')[-2]
-        print("download:",pic_url,end="")
+        print("\ndownload:",pic_url,end="")
         try:
             r=myRequest_get(pic_url,stream=True)
         except Exception as e:
