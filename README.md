@@ -30,6 +30,7 @@ pip install requirements.txt
 ```[-p]``` '0':禁用代理配置  默认'1'：启用代理
 ## example:<br>
 ```python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300```<br>
+```python Spider_of_t66y.py -c 2 -p 0```<br>
 ```python Spider_of_t66y.py -h```<br>
 # 友情提醒
 仅供学习，注意身体<br>by.赤道企鹅™
