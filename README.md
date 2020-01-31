@@ -6,7 +6,7 @@ Python 3.x
 ## 模块列表
 pip install requirements.txt
 ## 代理配置
-根目录下有代理配置文件，可以配置http/https代理，（参数```[-p]```可以禁用代理）
+根目录下有代理配置文件，可以配置http/https代理，（参数```[-p]```可以禁用代理）<br>
 默认配置：
 ```
 {
