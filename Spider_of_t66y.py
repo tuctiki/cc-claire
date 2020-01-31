@@ -27,11 +27,11 @@ except Exception as e:
     print("Filed to load './proxy' cause:",e)
     sys.exit(0)
 
-def myRequest_get(url,stream=False,timeout=(5,30)):
+def myRequest_get(url,stream=False,timeout=(5,40)):
     if useProxy:
-        return requests.get(url,proxies=proxies,headers=head,stream=stream,timeout=(5,30))
+        return requests.get(url,proxies=proxies,headers=head,stream=stream,timeout=timeout)
     else:
-        return requests.get(url,headers=head,stream=stream,timeout=(5,30))
+        return requests.get(url,headers=head,stream=stream,timeout=timeout)
 
 def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
     count=-1
@@ -59,7 +59,7 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
         pic_url=str(li).split('"')[-2]
         print("download:",pic_url,end="")
         try:
-            r=myRequest_get(url,True)
+            r=myRequest_get(pic_url,stream=True)
         except Exception as e:
             print("connect failed:",e)
             return 0
