@@ -51,7 +51,12 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
         return 0
     soup=BeautifulSoup(f.content,"lxml")
     photo_div=soup.find_all('div',class_="tpc_content do_not_catch")
-    photo_list=photo_div[0].find_all('img')
+    try:
+        photo_list=photo_div[0].find_all('img')
+    except Exception as e:
+        print("Url(%s) filed to get photo list cause :"%(url),e)
+        return 0
+
     savepath=path+"/"+name[:4]+"/"+name[4:]
     photo_num=len(photo_list)
     for li in photo_list:
