@@ -134,6 +134,7 @@ def pre_exit():
             sys.exit(0)
 
 def main():
+    global useProxy
     parser = argparse.ArgumentParser()
     parser.add_argument('-c','--class_id',type=int,default=0,help="'1' for 【新時代的我們】, '2' for 【達蓋爾的旗幟】, '0' for both")
     parser.add_argument('-s','--start',type=int,default=1,help="Page_start(default=1)")
