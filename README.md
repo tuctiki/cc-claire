@@ -6,7 +6,7 @@ Python 3.x
 ## 模块列表
 pip install requirements.txt
 ## 代理配置
-根目录下有代理配置文件，可以配置http/https代理，若该文件为空则不使用代理
+根目录下有代理配置文件，可以配置http/https代理，（参数```[-p]```可以禁用代理）
 默认配置：
 ```
 {
@@ -27,6 +27,7 @@ pip install requirements.txt
 ```[-s]``` 下载的起始页（默认1）<br>
 ```[-e]``` 下载的尾页<br>
 ```[-m]``` 设置最大下载线程（默认200）<br>
+```[-p]``` 禁用代理配置
 ## example:<br>
 ```python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300```<br>
 ```python Spider_of_t66y.py -h```<br>
