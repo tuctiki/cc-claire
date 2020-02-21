@@ -8,6 +8,7 @@ import sys
 import argparse 
 import os
 import time
+import tqdm
 
 class_list1=["[亞洲]","[歐美]","[動漫]","[寫真]","[原创]","[其它]"]
 main_url="http://t66y.com/"
@@ -58,8 +59,9 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
         return 0
 
     savepath=path+"/"+name[:4]+"/"+name[4:]
+    bar=tqdm.tqdm(photo_list)
     photo_num=len(photo_list)
-    for li in photo_list:
+    for li in bar:
         #print(str(li))
         pic_url=str(li).split('"')[-2]
         print("\ndownload:",pic_url,end="")
@@ -75,7 +77,7 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
             except:
                 savefilename=savepath+"/"+str(count)+".jpg"
             open(savefilename, 'wb').write(r.content)
-            print("(%d/%d)"%(count+1,photo_num))
+            #print("(%d/%d)"%(count+1,photo_num))
         else:
             print(r.status_code,":url(%s) request failed!"%(pic_url))
         del r
