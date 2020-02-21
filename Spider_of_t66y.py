@@ -59,8 +59,9 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
         return 0
 
     savepath=path+"/"+name[:4]+"/"+name[4:]
-    bar=tqdm.tqdm(photo_list)
     photo_num=len(photo_list)
+    bar=tqdm.tqdm(photo_list)
+    bar.set_description("post url: %s" % url)
     for li in bar:
         #print(str(li))
         pic_url=str(li).split('"')[-2]
@@ -127,7 +128,7 @@ def get_list(class_name,url): #该函数获取板块内的帖子列表
 def pre_exit():
     while(1):
         thread_unfinished=threading.active_count() - 1
-        if thread_unfinished>0:
+        if thread_unfinished>1:
             print("\n***剩余下载线程：[",thread_unfinished,"]***")
             print("若长时间响应请手动结束进程...")
             time.sleep(8)
@@ -136,7 +137,6 @@ def pre_exit():
             sys.exit(0)
 
 def main():
-    global useProxy
     parser = argparse.ArgumentParser()
     parser.add_argument('-c','--class_id',type=int,default=0,help="'1' for 【新時代的我們】, '2' for 【達蓋爾的旗幟】, '0' for both")
     parser.add_argument('-s','--start',type=int,default=1,help="Page_start(default=1)")
