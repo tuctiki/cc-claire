@@ -128,7 +128,7 @@ def get_list(class_name,url): #该函数获取板块内的帖子列表
 def pre_exit():
     while(1):
         thread_unfinished=threading.active_count() - 1
-        if thread_unfinished>1:
+        if thread_unfinished>0:
             print("\n***剩余下载线程：[",thread_unfinished,"]***")
             print("若长时间响应请手动结束进程...")
             time.sleep(8)
