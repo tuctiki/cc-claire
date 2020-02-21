@@ -28,7 +28,7 @@ except Exception as e:
     print("Filed to load './proxy' cause:",e)
     sys.exit(0)
 
-def myRequest_get(url,stream=False,timeout=(20,120)):
+def myRequest_get(url,stream=False,timeout=(20,240)):
     global useProxy
     if useProxy:
         return requests.get(url,proxies=proxies,headers=head,stream=stream,timeout=timeout)
@@ -60,13 +60,15 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
         return 0
 
     savepath=path+"/"+name[:4]+"/"+name[4:]
-    #photo_num=len(photo_list)
-    bar=tqdm.tqdm(photo_list)
-    bar.set_description("post url: %s" % (url))
-    for li in bar:
+    photo_num=len(photo_list)
+    #bar=tqdm.tqdm(photo_list)
+    #bar.set_description("post url: %s" % (url))
+    index=0
+    for li in photo_list:
         #print(str(li))
+        index+=1
         pic_url=str(li).split('"')[-2]
-        print("\ndownload:",pic_url,end="")
+        print("[%d/%d] Download: %s"%(index,photo_num,url))
         try:
             r=myRequest_get(pic_url,stream=True)
         except Exception as e:
@@ -83,6 +85,7 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
         else:
             print(r.status_code,":url(%s) request failed!"%(pic_url))
         del r
+    print("帖子[%s]下载完成，共下载[%d/%d]幅图片，有[%d]幅下载失败。"%(url,count+1,photo_num,photo_num-count-1))
 
 def get_list(class_name,url): #该函数获取板块内的帖子列表
     '''get_list(class_name,url)'''
@@ -114,13 +117,16 @@ def get_list(class_name,url): #该函数获取板块内的帖子列表
         post_url=main_url+post_url
         post_list[post_title] =post_url
     print(post_list)
-    for key in post_list:
+    bar=tqdm.tqdm(post_list)
+    bar.set_description("获取【%s】帖子列表=>"%(class_name))
+    for key in bar:
         #download_pic(key,post_list[key],"./t66y/"+class_name)
         while(1):
             if threading.active_count()<max_thread:
                 break
             else:
-                time.sleep(1)
+                print("线程池已满，正在等待其它线程退出...")
+                time.sleep(2)
         download_thread=threading.Thread(target=download_pic, args=(key,post_list[key],"./t66y/"+class_name,)) #多线程下载
         download_thread.setDaemon(True)  #设置守护进程
         download_thread.start()
@@ -130,9 +136,8 @@ def pre_exit():
     while(1):
         thread_unfinished=threading.active_count() - 1
         if thread_unfinished>0:
-            print("\n***剩余下载线程：[",thread_unfinished,"]***")
-            print("若长时间响应请手动结束进程...")
-            time.sleep(8)
+            print("\n***剩余下载线程：[%d]***\n若长时间无响应请手动结束进程..."%(thread_unfinished))
+            time.sleep(10)
         else:
             print("下载已完成！")
             sys.exit(0)
@@ -148,6 +153,7 @@ def main():
     class_id=args.class_id
     start=args.start
     end=args.end
+    global useProxy
     if args.noproxy==0: #关闭代理
         useProxy=False
 
