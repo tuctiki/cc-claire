@@ -28,7 +28,7 @@ except Exception as e:
     print("Filed to load './proxy' cause:",e)
     sys.exit(0)
 
-def myRequest_get(url,stream=False,timeout=(5,40)):
+def myRequest_get(url,stream=False,timeout=(20,120)):
     if useProxy:
         return requests.get(url,proxies=proxies,headers=head,stream=stream,timeout=timeout)
     else:
@@ -59,9 +59,9 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
         return 0
 
     savepath=path+"/"+name[:4]+"/"+name[4:]
-    photo_num=len(photo_list)
+    #photo_num=len(photo_list)
     bar=tqdm.tqdm(photo_list)
-    bar.set_description("post url: %s" % url)
+    bar.set_description("post url: %s" % (url))
     for li in bar:
         #print(str(li))
         pic_url=str(li).split('"')[-2]
