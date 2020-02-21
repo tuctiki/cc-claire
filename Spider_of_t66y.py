@@ -29,6 +29,7 @@ except Exception as e:
     sys.exit(0)
 
 def myRequest_get(url,stream=False,timeout=(20,120)):
+    global useProxy
     if useProxy:
         return requests.get(url,proxies=proxies,headers=head,stream=stream,timeout=timeout)
     else:
