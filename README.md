@@ -28,6 +28,7 @@ pip install -r requirements.txt
 ```[-e]``` 下载的尾页<br>
 ```[-m]``` 设置最大下载线程（默认200）<br>
 ```[-p]``` '0':禁用代理配置  默认'1'：启用代理
+下载完成的图片会保存在./t66y目录
 ## example:<br>
 ```python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300```<br>
 ```python Spider_of_t66y.py -c 2 -p 0```<br>
