@@ -11,9 +11,9 @@ import time
 import tqdm
 
 class_list1=["[亞洲]","[歐美]","[動漫]","[寫真]","[原创]","[其它]"]
-main_url="http://t66y.com/"
-url1="http://t66y.com/thread0806.php?fid=8&search=&page="
-url2="http://t66y.com/thread0806.php?fid=16&search=&page="
+main_url="http://www.t66y.com/"
+url1="http://www.t66y.com/thread0806.php?fid=8&search=&page="
+url2="http://www.t66y.com/thread0806.php?fid=16&search=&page="
 max_thread=300
 useProxy=True
 #UA设置
