@@ -34,4 +34,7 @@ pip install -r requirements.txt
 ```python Spider_of_t66y.py -c 2 -p 0```<br>
 ```python Spider_of_t66y.py -h```<br>
 # 友情提醒
+实际测试中线程数量过多会触发图床的流量保护，导致无法下载图片<br>
+同时如果代理服务器带宽较小，造成长时间拥塞，程序会自动结束某些下载线程<br>
+
 仅供学习，注意身体<br>by.赤道企鹅™
