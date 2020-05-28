@@ -15,7 +15,9 @@ pip install -r requirements.txt
 }
 ```
 ### 本地代理
-本地开启ss/ssr后，修改配置文件中的代理端口为ss/ssr的代理端口（一般默认1080）<br>
+1. 本地开启ss/ssr/v2ray等服务<br>
+2. 设置“允许来自局域网的链接”<br>
+3. 修改配置文件```proxy```中的代理端口为ss/ssr/v2ray的本地代理端口（一般默认1080）<br>
 *请确保PAC文件设置了代理草榴网站的规则*
 ### 远程代理
 填入代理提供商的IP地址以及对应端口号即可（如http://xxx.xxx.xxx.xxx:1234/）
