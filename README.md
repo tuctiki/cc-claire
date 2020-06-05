@@ -10,8 +10,8 @@ pip install -r requirements.txt
 默认配置：
 ```
 {
-  "http": "http://localhost:1080",
-  "https": "https://localhost:1080"
+  "http": "socks5://localhost:1080",
+  "https": "socks5://localhost:1080"
 }
 ```
 ### 本地代理
