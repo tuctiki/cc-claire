@@ -20,7 +20,7 @@ pip install -r requirements.txt
 3. 修改配置文件```proxy```中的代理端口为ss/ssr/v2ray的本地代理端口（一般默认1080）<br>
 *请确保PAC文件设置了代理草榴网站的规则*
 ### 远程代理
-填入代理提供商的IP地址以及对应端口号即可（如http://xxx.xxx.xxx.xxx:1234/）
+填入代理提供商的IP地址以及对应端口号即可（如socks5://xxx.xxx.xxx.xxx:1234/）
 # 使用方法
 ## 命令行:<br>
 ```python Spider_of_t66y.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD]```<br>
