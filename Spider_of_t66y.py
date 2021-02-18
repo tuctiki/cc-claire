@@ -15,7 +15,7 @@ class_list1=["[亞洲]","[歐美]","[動漫]","[寫真]","[原创]","[其它]"]
 main_url="http://www.t66y.com/"
 url1="http://www.t66y.com/thread0806.php?fid=8&search=&page="
 url2="http://www.t66y.com/thread0806.php?fid=16&search=&page="
-max_thread=30 #代理慢或者电脑性能不好的可以调低
+max_thread=60 #代理慢或者电脑性能不好的可以调低
 useProxy=True
 max_retried = 3
 
@@ -159,7 +159,7 @@ def main():
     parser.add_argument('-c','--class_id',type=int,default=0,help="'1' for 【新時代的我們】, '2' for 【達蓋爾的旗幟】, '0' for both")
     parser.add_argument('-s','--start',type=int,default=1,help="Page_start(default=1)")
     parser.add_argument('-e','--end',type=int,default=1,help="Page_end")
-    parser.add_argument('-m','--max_thread',type=int,default=300,help="Max thread num(default=300)")
+    parser.add_argument('-m','--max_thread',type=int,default=60,help="Max thread num(default=300)")
     parser.add_argument('-p','--noproxy',type=int,default=1,help="'0': not use proxy; '1': use proxy; (default=1)")
     args = parser.parse_args()
     class_id=args.class_id
