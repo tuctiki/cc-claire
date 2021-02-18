@@ -10,14 +10,17 @@ import os
 import time
 import tqdm
 
+#基本设置
 class_list1=["[亞洲]","[歐美]","[動漫]","[寫真]","[原创]","[其它]"]
 main_url="http://www.t66y.com/"
 url1="http://www.t66y.com/thread0806.php?fid=8&search=&page="
 url2="http://www.t66y.com/thread0806.php?fid=16&search=&page="
-max_thread=300
+max_thread=30 #代理慢或者电脑性能不好的可以调低
 useProxy=True
+max_retried = 3
+
 #UA设置
-head = {}
+head = dict()
 head['User-Agent'] = 'Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML,  like Gecko) Chrome/18.0.1025.166  Safari/535.19'
 
 try:
@@ -28,7 +31,7 @@ except Exception as e:
     print("Filed to load './proxy' cause:",e)
     sys.exit(0)
 
-def myRequest_get(url,stream=False,timeout=(20,240)):
+def myRequest_get(url, stream=False, timeout=(15,220)):
     global useProxy
     if useProxy:
         return requests.get(url,proxies=proxies,headers=head,stream=stream,timeout=timeout)
@@ -47,7 +50,7 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
     else:
         os.mkdir(path+"/"+name[:4]+"/"+name[4:])
     try:
-        f=myRequest_get(url,False)
+        f=myRequest_get(url, False)
     except Exception as e:
         print("download failed:",e)
         return 0
@@ -61,30 +64,40 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
 
     savepath=path+"/"+name[:4]+"/"+name[4:]
     photo_num=len(photo_list)
-    #bar=tqdm.tqdm(photo_list)
-    #bar.set_description("post url: %s" % (url))
     index=0
+
     for li in photo_list:
-        #print(str(li))
         index+=1
         pic_url=li.get('ess-data')
-        print("[%d/%d] Download: %s"%(index,photo_num,url))
-        try:
-            r=myRequest_get(pic_url,stream=True)
-        except Exception as e:
-            print("connect failed:",e)
-            return 0
-        if r.status_code==200:
-            count+=1
+        if pic_url == None:
+            continue
+        _retried = max_retried
+        while True:
             try:
-                savefilename=savepath+"/"+str(count)+"."+pic_url.split(".")[-1]
-            except:
-                savefilename=savepath+"/"+str(count)+".jpg"
-            open(savefilename, 'wb').write(r.content)
-            #print("(%d/%d)"%(count+1,photo_num))
-        else:
-            print(r.status_code,":url(%s) request failed!"%(pic_url))
-        del r
+                r=myRequest_get(pic_url,stream=True)
+            except Exception as e:
+                if _retried>0:
+                    _retried -= 1
+                    print("[%d/%d] Try again to download [%s] from post [%s]"%(index, photo_num, pic_url, url))
+                    continue
+                else:
+                    print("[%d/%d] Failed to download image [%s] in post [%s]:"%(index, photo_num, pic_url, url), str(e))
+                    break
+            if r.status_code==200:
+                count+=1
+                try:
+                    savefilename=savepath+"/"+str(count)+"."+pic_url.split(".")[-1]
+                except:
+                    savefilename=savepath+"/"+str(count)+".jpg"
+                with open(savefilename, 'wb') as _:
+                    _.write(r.content)
+                    print("[%d/%d] Saved Image [%s] from post [%s]"%(index, photo_num, pic_url, url))
+            else:
+                print(r.status_code, ":url(%s) request failed!"%(pic_url))
+            del r
+            break
+        
+
     print("帖子[%s]下载完成，共下载[%d/%d]幅图片，有[%d]幅下载失败。"%(url,count+1,photo_num,photo_num-count-1))
 
 def get_list(class_name,url): #该函数获取板块内的帖子列表
@@ -97,7 +110,7 @@ def get_list(class_name,url): #该函数获取板块内的帖子列表
     try:
         f=myRequest_get(url,False)
     except Exception as e:
-        print("Connect failed:",e)
+        print("Connect failed:", e)
         sys.exit(0)
     soup=BeautifulSoup(f.content,"lxml")
     td=soup.find_all('td',class_="tal")
@@ -116,16 +129,15 @@ def get_list(class_name,url): #该函数获取板块内的帖子列表
         post_url=str(i.find_all('h3')[0]).split('"')[1]
         post_url=main_url+post_url
         post_list[post_title] =post_url
-    print(post_list)
+
     bar=tqdm.tqdm(post_list)
     bar.set_description("获取【%s】帖子列表=>"%(class_name))
     for key in bar:
         #download_pic(key,post_list[key],"./t66y/"+class_name)
         while(1):
-            if threading.active_count()<max_thread:
+            if threading.active_count() < max_thread:
                 break
             else:
-                print("线程池已满，正在等待其它线程退出...")
                 time.sleep(2)
         download_thread=threading.Thread(target=download_pic, args=(key,post_list[key],"./t66y/"+class_name,)) #多线程下载
         download_thread.setDaemon(True)  #设置守护进程
@@ -134,9 +146,9 @@ def get_list(class_name,url): #该函数获取板块内的帖子列表
 
 def pre_exit():
     while(1):
-        thread_unfinished=threading.active_count() - 1
-        if thread_unfinished>0:
-            print("\n***剩余下载线程：[%d]***\n若长时间无响应请手动结束进程..."%(thread_unfinished))
+        thread_unfinished=threading.active_count() - init_thread_num
+        if thread_unfinished > 0:
+            print("\n***剩余下载线程：[%d]***\n 长时间无响应请(Ctrl+C)结束进程..."%(thread_unfinished))
             time.sleep(10)
         else:
             print("下载已完成！")
@@ -154,6 +166,8 @@ def main():
     start=args.start
     end=args.end
     global useProxy
+    global init_thread_num
+    init_thread_num = threading.active_count() #计算初始线程数
     if args.noproxy==0: #关闭代理
         useProxy=False
 
