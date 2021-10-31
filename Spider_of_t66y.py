@@ -1,5 +1,5 @@
 import requests
-import threading
+import threading, multiprocessing, signal
 from bs4 import BeautifulSoup
 from lxml import html
 import json
@@ -10,16 +10,19 @@ import os
 import time
 import tqdm
 
-#基本设置
+# 帖子前缀的分类标签，可以自己添加
 class_list1=["[亞洲]","[歐美]","[動漫]","[寫真]","[原创]","[其它]"]
-main_url="http://www.t66y.com/"
-url1="http://www.t66y.com/thread0806.php?fid=8&search=&page="
-url2="http://www.t66y.com/thread0806.php?fid=16&search=&page="
-max_thread=60 #代理慢或者电脑性能不好的可以调低
+
+# 如果当前域名失效了可以自行更换main_url（经常的事
+main_url="http://cl.170x.xyz/"
+url1=f"{main_url}/thread0806.php?fid=8&search=&page="
+url2=f"{main_url}/thread0806.php?fid=16&search=&page="
+
+max_thread=64
 useProxy=True
 max_retried = 3
 
-#UA设置
+# UA设置
 head = dict()
 head['User-Agent'] = 'Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML,  like Gecko) Chrome/18.0.1025.166  Safari/535.19'
 
@@ -38,7 +41,10 @@ def myRequest_get(url, stream=False, timeout=(15,220)):
     else:
         return requests.get(url,headers=head,stream=stream,timeout=timeout)
 
-def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
+def download_pic(name,url,path):
+    '''
+    该函数用于下载指定帖子内的所有图片
+    '''
     count=-1
     try:
         os.mkdir(path+"/"+name[:4])
@@ -91,7 +97,7 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
                     savefilename=savepath+"/"+str(count)+".jpg"
                 with open(savefilename, 'wb') as _:
                     _.write(r.content)
-                    print("[%d/%d] Saved Image [%s] from post [%s]"%(index, photo_num, pic_url, url))
+                    print("[%d/%d] Image saved [%s] from post [%s]"%(index, photo_num, pic_url, url))
             else:
                 print(r.status_code, ":url(%s) request failed!"%(pic_url))
             del r
@@ -101,7 +107,9 @@ def download_pic(name,url,path): #该函数用于下载具体帖子内的图片
     print("帖子[%s]下载完成，共下载[%d/%d]幅图片，有[%d]幅下载失败。"%(url,count+1,photo_num,photo_num-count-1))
 
 def get_list(class_name,url): #该函数获取板块内的帖子列表
-    '''get_list(class_name,url)'''
+    '''
+    该函数获取板块内的帖子列表
+    '''
     if os.path.exists("./t66y/"+class_name):
         print("path['./t66y/"+class_name+"'] exists")
     else:
@@ -154,6 +162,16 @@ def pre_exit():
             print("下载已完成！")
             sys.exit(0)
 
+
+def on_recv_sigterm(signum, frame):
+    global sub_process_list
+
+    for p in sub_process_list:
+        p.terminate()
+        sub_process_list.remove(p)
+
+    sys.exit(0)
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-c','--class_id',type=int,default=0,help="'1' for 【新時代的我們】, '2' for 【達蓋爾的旗幟】, '0' for both")
@@ -182,12 +200,28 @@ def main():
     else:
         os.mkdir("./t66y")
     print("Enjoy your life!")
+
+
+    # 存储所有的子进程
+    global sub_process_list
+    sub_process_list = []
+ 
+    # 注册SIGTERM信号捕捉函数,来管理子进程的退出
+    signal.signal(signal.SIGTERM, on_recv_sigterm)
+    signal.signal(signal.SIGINT, on_recv_sigterm)
+
     if class_id==0:
         print("将下载【新時代的我們】和【達蓋爾的旗幟】的图片...")
         for i in range(start,end+1):
             print("开始下载第",i,"页")
-            get_list("新時代的我們",url1+str(i))
-            get_list("達蓋爾的旗幟",url2+str(i))
+            p1 = multiprocessing.Process(target=get_list, args=(get_list("新時代的我們", url1+str(i))))
+            p2 = multiprocessing.Process(target=get_list, args=(get_list("新時代的我們", url1+str(i))))
+            sub_process_list.append(p1)
+            sub_process_list.append(p2)
+            p1.join()
+            p2.join()
+            #get_list("新時代的我們",url1+str(i))
+            #get_list("達蓋爾的旗幟",url2+str(i))
         pre_exit()
     else:
         if class_id==1:
