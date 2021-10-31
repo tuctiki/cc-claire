@@ -41,14 +41,21 @@ Python 3.x
 
 ### 命令行:
 
-`python Spider_of_t66y.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD]`
-`[-h]` 显示帮助信息
-`[-c]` 下载类别，`1`下载【新時代的我們】板块 , `2`下载【達蓋爾的旗幟】板块 , `0`同时下载两个板块
-`[-s]` 下载的起始页（默认`1`）
-`[-e]` 下载的尾页
-`[-m]` 设置最大下载线程（默认`64`）
-`[-p]` `0`:禁用代理配置  默认`1`：启用代理 
-下载完成的图片会保存在`./t66y`目录
+```shell
+usage: Spider_of_t66y.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD] [-p NOPROXY]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CLASS_ID, --class_id CLASS_ID
+                        '1' for 【新時代的我們】, '2' for 【達蓋爾的旗幟】, '0' for both
+  -s START, --start START
+                        Page_start(default=1)
+  -e END, --end END     Page_end
+  -m MAX_THREAD, --max_thread MAX_THREAD
+                        Max thread num(default=300)
+  -p NOPROXY, --noproxy NOPROXY
+                        '0': not use proxy; '1': use proxy; (default=1
+```
 
 ### example:
 
