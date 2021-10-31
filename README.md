@@ -17,6 +17,7 @@ Python 3.x
 根目录下有代理配置文件，可以配置http/https代理，不需要代理的可以通过参数`-p 0`禁用
 
 默认配置：
+
 ```
 {
   "http": "socks5://localhost:1080",
@@ -40,20 +41,22 @@ Python 3.x
 
 ### 命令行:
 
-```python Spider_of_t66y.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD]```
-```[-h]``` 显示帮助信息
-```[-c]``` 下载类别，```1```下载【新時代的我們】板块 , ```2```下载【達蓋爾的旗幟】板块 , ```0```同时下载两个板块
-```[-s]``` 下载的起始页（默认1）
-```[-e]``` 下载的尾页
-```[-m]``` 设置最大下载线程（默认64）
-```[-p]``` '0':禁用代理配置  默认'1'：启用代理 
+`python Spider_of_t66y.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD]`
+`[-h]` 显示帮助信息
+`[-c]` 下载类别，`1`下载【新時代的我們】板块 , `2`下载【達蓋爾的旗幟】板块 , `0`同时下载两个板块
+`[-s]` 下载的起始页（默认`1`）
+`[-e]` 下载的尾页
+`[-m]` 设置最大下载线程（默认`64`）
+`[-p]` `0`:禁用代理配置  默认`1`：启用代理 
 下载完成的图片会保存在`./t66y`目录
 
 ### example:
 
-```python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300```
-```python Spider_of_t66y.py -c 2 -p 0```
-```python Spider_of_t66y.py -h```
+`python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300`
+
+`python Spider_of_t66y.py -c 2 -p 0`
+
+`python Spider_of_t66y.py -h`
 
 ## 0x03 注意事项
 
