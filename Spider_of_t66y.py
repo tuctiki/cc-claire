@@ -214,14 +214,16 @@ def main():
         print("将下载【新時代的我們】和【達蓋爾的旗幟】的图片...")
         for i in range(start,end+1):
             print("开始下载第",i,"页")
-            p1 = multiprocessing.Process(target=get_list, args=(get_list("新時代的我們", url1+str(i))))
-            p2 = multiprocessing.Process(target=get_list, args=(get_list("新時代的我們", url1+str(i))))
+            p1 = multiprocessing.Process(target=get_list, args=("新時代的我們", url1+str(i)))
+            p2 = multiprocessing.Process(target=get_list, args=("達蓋爾的旗幟", url2+str(i)))
+            p1.start()
+            p2.start()
             sub_process_list.append(p1)
             sub_process_list.append(p2)
             p1.join()
             p2.join()
-            #get_list("新時代的我們",url1+str(i))
-            #get_list("達蓋爾的旗幟",url2+str(i))
+            #get_list("新時代的我們", url1+str(i))
+            #get_list("達蓋爾的旗幟", url2+str(i))
         pre_exit()
     else:
         if class_id==1:
