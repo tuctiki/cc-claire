@@ -52,11 +52,11 @@ Python 3.x
 
 ### example:
 
-`python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300`
+`python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300` 下载【新時代的我們】中第一页到第二页的帖子，最大300线程
 
-`python Spider_of_t66y.py -c 2 -p 0`
+`python Spider_of_t66y.py -c 2 -p 0` 下载【達蓋爾的旗幟】中第一页的帖子，不走代理
 
-`python Spider_of_t66y.py -h`
+`python Spider_of_t66y.py -h` 查看帮助信息
 
 ## 0x03 注意事项
 
