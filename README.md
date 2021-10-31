@@ -1,18 +1,18 @@
-# t66y_spider
+## 0x00 t66y_spider
 
 利用爬虫下载草榴【新時代的我們】和【達蓋爾的旗幟】两个板块帖子内的图片 
 
-# 环境要求
+## 0x01 环境要求
 
-## 解释器版本
+### 解释器版本
 
 Python 3.x
 
-## 模块列表
+### 模块列表
 
 `pip install -r requirements.txt`
 
-## 代理配置
+### 代理配置
 
 根目录下有代理配置文件，可以配置http/https代理，不需要代理的可以通过参数`-p 0`禁用
 
@@ -24,7 +24,7 @@ Python 3.x
 }
 ```
 
-### 本地代理
+#### 本地代理
 
 1. 本地开启`ss/ssr/v2ray`等服务并使用`http`或`socks5`协议监听本地端口
 
@@ -32,13 +32,13 @@ Python 3.x
    
 *请确保PAC文件设置了代理草榴网站的规则*
 
-### 远程代理
+#### 远程代理
 
 填入代理URL即可，如：`socks5://xxx.xxx.xxx.xxx:1234/`
 
-# 使用方法
+## 0x02 使用方法
 
-## 命令行:
+### 命令行:
 
 ```python Spider_of_t66y.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD]```
 ```[-h]``` 显示帮助信息
@@ -49,13 +49,13 @@ Python 3.x
 ```[-p]``` '0':禁用代理配置  默认'1'：启用代理 
 下载完成的图片会保存在`./t66y`目录
 
-## example:
+### example:
 
 ```python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300```
 ```python Spider_of_t66y.py -c 2 -p 0```
 ```python Spider_of_t66y.py -h```
 
-# 注意事项
+## 0x03 注意事项
 
 1. 该项目为作者初学Python编程的练习脚本，大部分时间不会维护，**切勿用于非法用途**！
 
