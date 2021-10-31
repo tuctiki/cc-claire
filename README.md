@@ -10,7 +10,7 @@ Python 3.x
 
 ## 模块列表
 
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 ## 代理配置
 
