@@ -1,6 +1,6 @@
 ## 0x00 cc_claire
 
-利用爬虫下载claire【新時代的我們】和【達蓋爾的旗幟】两个板块帖子内的图片 
+利用爬虫下载claire【新】和【達】两个板块帖子内的图片 
 
 ## 0x01 环境要求
 
@@ -47,7 +47,7 @@ usage: claire_spider.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD] [
 optional arguments:
   -h, --help            show this help message and exit
   -c CLASS_ID, --class_id CLASS_ID
-                        '1' for 【新時代的我們】, '2' for 【達蓋爾的旗幟】, '0' for both
+                        '1' for 【新】, '2' for 【達】, '0' for both
   -s START, --start START
                         Page_start(default=1)
   -e END, --end END     Page_end
@@ -59,11 +59,11 @@ optional arguments:
 
 ### example:
 
-1. 下载【新時代的我們】中第一页到第二页的帖子，最大300线程，走代理
+1. 下载【新】中第一页到第二页的帖子，最大300线程，走代理
 
     `python claire_spider.py -c 1 -s 1 -e 2 -m 300` 
 
-2. 下载【達蓋爾的旗幟】和【達蓋爾的旗幟】中第一页的帖子，不走代理
+2. 下载【新】和【達】中第一页的帖子，不走代理
 
     `python claire_spider.py -c 2 -p 0` 
 
