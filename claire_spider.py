@@ -188,7 +188,7 @@ def on_recv_sigterm(signum, frame):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--class_id', type=int, default=0,
-                        help="'1' for 【新時代的我們】, '2' for 【達蓋爾的旗幟】, '0' for both")
+                        help="'1' for 【新】, '2' for 【達】, '0' for both")
     parser.add_argument('-s', '--start', type=int,
                         default=1, help="Page_start(default=1)")
     parser.add_argument('-e', '--end', type=int, default=1, help="Page_end")
@@ -227,34 +227,32 @@ def main():
     signal.signal(signal.SIGINT, on_recv_sigterm)
 
     if class_id == 0:
-        print("将下载【新時代的我們】和【達蓋爾的旗幟】的图片...")
+        print("将下载【新】和【達】的图片...")
         for i in range(start, end+1):
             print("开始下载第", i, "页")
             p1 = multiprocessing.Process(
-                target=get_list, args=("新時代的我們", url1+str(i)))
+                target=get_list, args=("新", url1+str(i)))
             p2 = multiprocessing.Process(
-                target=get_list, args=("達蓋爾的旗幟", url2+str(i)))
+                target=get_list, args=("達", url2+str(i)))
             p1.start()
             p2.start()
             sub_process_list.append(p1)
             sub_process_list.append(p2)
             p1.join()
             p2.join()
-            #get_list("新時代的我們", url1+str(i))
-            #get_list("達蓋爾的旗幟", url2+str(i))
         pre_exit()
     else:
         if class_id == 1:
-            print("将下载【新時代的我們】的图片...")
+            print("将下载【新】的图片...")
             for i in range(start, end+1):
                 print("开始下载第", i, "页")
-                get_list("新時代的我們", url1+str(i))
+                get_list("新", url1+str(i))
             pre_exit()
         if class_id == 2:
-            print("将下载【達蓋爾的旗幟】的图片...")
+            print("将下载【達】的图片...")
             for i in range(start, end+1):
                 print("开始下载第", i, "页")
-                get_list("達蓋爾的旗幟", url2+str(i))
+                get_list("達", url2+str(i))
             pre_exit()
 
 
