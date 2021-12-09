@@ -1,4 +1,4 @@
-## 0x00 t66y_spider
+## 0x00 cc_claire
 
 利用爬虫下载草榴【新時代的我們】和【達蓋爾的旗幟】两个板块帖子内的图片 
 
@@ -42,7 +42,7 @@ Python 3.x
 ### 命令行:
 
 ```shell
-usage: Spider_of_t66y.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD] [-p NOPROXY]
+usage: claire_spider.py [-h] [-c CLASS_ID] [-s START] [-e END] [-m MAX_THREAD] [-p NOPROXY]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -61,15 +61,15 @@ optional arguments:
 
 1. 下载【新時代的我們】中第一页到第二页的帖子，最大300线程，走代理
 
-    `python Spider_of_t66y.py -c 1 -s 1 -e 2 -m 300` 
+    `python claire_spider.py -c 1 -s 1 -e 2 -m 300` 
 
 2. 下载【達蓋爾的旗幟】和【達蓋爾的旗幟】中第一页的帖子，不走代理
 
-    `python Spider_of_t66y.py -c 2 -p 0` 
+    `python claire_spider.py -c 2 -p 0` 
 
 3. 查看帮助信息
 
-    `python Spider_of_t66y.py -h` 
+    `python claire_spider.py -h` 
 
 ## 0x03 注意事项
 
