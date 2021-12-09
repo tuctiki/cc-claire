@@ -119,10 +119,10 @@ def get_list(class_name, url):  # 该函数获取板块内的帖子列表
     '''
     该函数获取板块内的帖子列表
     '''
-    if os.path.exists("./t66y/"+class_name):
-        print("path['./t66y/"+class_name+"'] exists")
+    if os.path.exists("/export.claire/"+class_name):
+        print("path['/export.claire/"+class_name+"'] exists")
     else:
-        os.mkdir("./t66y/"+class_name)
+        os.mkdir("/export.claire/"+class_name)
     post_class = ""
     try:
         f = myRequest_get(url, False)
@@ -150,14 +150,13 @@ def get_list(class_name, url):  # 该函数获取板块内的帖子列表
     bar = tqdm.tqdm(post_list)
     bar.set_description("获取【%s】帖子列表=>" % (class_name))
     for key in bar:
-        # download_pic(key,post_list[key],"./t66y/"+class_name)
         while(1):
             if threading.active_count() < max_thread:
                 break
             else:
                 time.sleep(2)
         download_thread = threading.Thread(target=download_pic, args=(
-            key, post_list[key], "./t66y/"+class_name,))  # 多线程下载
+            key, post_list[key], "/export.claire/"+class_name,))  # 多线程下载
         download_thread.setDaemon(True)  # 设置守护进程
         download_thread.start()
         time.sleep(0.1)
@@ -212,10 +211,10 @@ def main():
     if end < start or start < 1:
         print("Bad range!")
         sys.exit(0)
-    if os.path.exists("./t66y"):
-        print("path[',/t66y'] exists")
+    if os.path.exists("/export.claire"):
+        print("path['/export.claire'] exists")
     else:
-        os.mkdir("./t66y")
+        os.mkdir("/export.claire")
     print("Enjoy your life!")
 
     # 存储所有的子进程
